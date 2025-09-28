@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace MdDisplay
 {
@@ -67,9 +69,9 @@ namespace MdDisplay
 
           webBrowser.NavigateToString(htmlContent);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-          System.Windows.MessageBox.Show($"Erreur lors de la lecture du fichier : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+          MessageBox.Show($"Erreur lors de la lecture du fichier : {exception.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
         }
       }
     }
@@ -89,13 +91,13 @@ namespace MdDisplay
 
         using (var writer = new StreamWriter(SettingsFile))
         {
-          var serializer = new System.Xml.Serialization.XmlSerializer(typeof(Settings));
+          var serializer = new XmlSerializer(typeof(Settings));
           serializer.Serialize(writer, settings);
         }
       }
-      catch (Exception ex)
+      catch (Exception exception)
       {
-        MessageBox.Show($"Erreur lors de la sauvegarde des paramètres : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+        MessageBox.Show($"Erreur lors de la sauvegarde des paramètres : {exception.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
       }
     }
 
@@ -107,7 +109,7 @@ namespace MdDisplay
         {
           using (var reader = new StreamReader(SettingsFile))
           {
-            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(Settings));
+            var serializer = new XmlSerializer(typeof(Settings));
             if (serializer.Deserialize(reader) is Settings settings)
             {
               Left = settings.WindowLeft;
@@ -123,14 +125,14 @@ namespace MdDisplay
             }
           }
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-          System.Windows.MessageBox.Show($"Erreur lors du chargement des paramètres : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+          MessageBox.Show($"Erreur lors du chargement des paramètres : {exception.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
       }
     }
 
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private void Window_Closing(object sender, CancelEventArgs e)
     {
       SaveSettings();
     }

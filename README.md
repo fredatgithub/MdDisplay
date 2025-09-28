@@ -10,7 +10,7 @@ MD Displayer is a tool for displaying and rendering Markdown files.
 
 ## Installation
 ```bash
-git clone https://github.com/yourusername/MdDisplay.git
+git clone https://github.com/fredatgithub/MdDisplay
 cd MdDisplay
 ```
 
@@ -29,7 +29,3 @@ List any dependencies or requirements needed to run the application.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-Your Name - [@yourusername](https://twitter.com/yourusername)
-Project Link: [https://github.com/yourusername/MdDisplay](https://github.com/yourusername/MdDisplay)

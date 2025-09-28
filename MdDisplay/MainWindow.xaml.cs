@@ -78,7 +78,7 @@ namespace MdDisplay
     {
       try
       {
-        var settings = new
+        var settings = new Settings
         {
           WindowLeft = Left,
           WindowTop = Top,
@@ -87,15 +87,15 @@ namespace MdDisplay
           FilePath = txtFilePath.Text
         };
 
-        using (var writer = new System.IO.StreamWriter(SettingsFile))
+        using (var writer = new StreamWriter(SettingsFile))
         {
-          var serializer = new System.Xml.Serialization.XmlSerializer(settings.GetType());
+          var serializer = new System.Xml.Serialization.XmlSerializer(typeof(Settings));
           serializer.Serialize(writer, settings);
         }
       }
       catch (Exception ex)
       {
-        System.Windows.MessageBox.Show($"Erreur lors de la sauvegarde des paramètres : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+        MessageBox.Show($"Erreur lors de la sauvegarde des paramètres : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
       }
     }
 
@@ -105,7 +105,7 @@ namespace MdDisplay
       {
         try
         {
-          using (var reader = new System.IO.StreamReader(SettingsFile))
+          using (var reader = new StreamReader(SettingsFile))
           {
             var serializer = new System.Xml.Serialization.XmlSerializer(typeof(Settings));
             if (serializer.Deserialize(reader) is Settings settings)
